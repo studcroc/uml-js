@@ -1,80 +1,20 @@
-const parser = require("@babel/parser");
-const fs = require("fs");
-const path = require("path");
-const traverse = require("@babel/traverse").default;
+#!/usr/bin/env node
 
-let classes = [];
+import getFilePathList, { validateDirectoryPath } from "./src/file_handler.js";
+import parseFilesForUML from "./src/parser.js";
+import generateMermaidUMLFile from "./src/uml_generator.js";
 
-function parseUMLInfo(filePath) {
-  const fileContent = fs.readFileSync(filePath, "utf-8");
+const inputDirectoryPath = process.argv[2];
+const ouputDirectoryOrFilePath = process.argv[3];
 
-  const ast = parser.parse(fileContent, {
-    sourceType: "module",
-  });
+// Sanity checks
+validateDirectoryPath(inputDirectoryPath);
 
-  traverse(ast, {
-    enter(path) {
-      if (path.node.type === "ClassDeclaration") {
-        let classObj = {
-          name: path.node.id.name,
-        };
-        if (path.node.superClass) {
-          classObj = { ...classObj, superClass: path.node.superClass.name };
-        }
-        let classProperties = {
-          private: [],
-          public: [],
-        };
-        let classMethods = {
-          private: [],
-          public: [],
-        };
+// Get list of all the relevant js files to parse
+const filePaths = getFilePathList(inputDirectoryPath);
 
-        path.node.body.body.forEach((node) => {
-          if (node.type === "ClassPrivateProperty") {
-            classProperties.private.push(node.key.id.name);
-          } else if (
-            node.type === "ClassPrivateMethod" &&
-            node.kind === "method"
-          ) {
-            classMethods.private.push(node.key.id.name);
-          } else if (
-            node.type === "ClassMethod" &&
-            node.kind !== "constructor" &&
-            node.kind !== "get" &&
-            node.kind !== "set"
-          ) {
-            if (node.kind === "method" && node.type === 'ClassMethod') {
-              classMethods.public.push(node.key.name);
-            }
-          }
-        });
+// Parse files and get the UML relevant information
+const classes = parseFilesForUML(filePaths);
 
-        classObj = {
-          ...classObj,
-          properties: {
-            ...classProperties,
-          },
-          methods: {
-            ...classMethods,
-          },
-        };
-
-        classes.push(classObj);
-      }
-    },
-  });
-}
-
-function getListOfAllFilePaths() {
-  let files = fs.readdirSync(path.resolve("./sample"));
-  files.forEach((file) => {
-    parseUMLInfo(path.resolve(`./sample/${file}`));
-  });
-}
-
-getListOfAllFilePaths();
-
-console.dir(classes, {
-  depth: 3,
-});
+// Generate Mermaid UML code
+generateMermaidUMLFile(classes, ouputDirectoryOrFilePath);

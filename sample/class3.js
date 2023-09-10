@@ -6,7 +6,7 @@ class Class3 extends Class2 {
         this.class1Obj = new Class1();
     }
 
-    #class3PrivateMethod() {
+    #class3PrivateMethod(arg1, arg2) {
         console.log('Hey, this is class3PrivateMethod');
     }
 }
