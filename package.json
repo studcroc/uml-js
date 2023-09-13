@@ -7,7 +7,7 @@
     "build": "webpack"
   },
   "bin": {
-    "umljs": "dist/umljs.bundle.js"
+    "umljs": "index.js"
   },
   "keywords": [],
   "author": "",

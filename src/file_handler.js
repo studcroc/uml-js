@@ -59,14 +59,17 @@ function isTXTFilePath(path) {
   return path.endsWith(".txt");
 }
 
+function isImageFilePath(path) {
+  return path.endsWith(".png") || path.endsWith(".svg");
+}
+
 function isDirectory(path) {
   let resolvedPath = resolve(path);
   return statSync(resolvedPath).isDirectory(resolvedPath);
 }
 
 export {
-  isDirectory,
-  isTXTFilePath,
+  isDirectory, isImageFilePath as isSVGFilePath, isTXTFilePath,
   validateDirectoryPath,
   validateFilePath,
   validatePath
