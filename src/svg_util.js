@@ -2,7 +2,7 @@ import { createWriteStream } from "fs";
 import https from "https";
 import pako from "pako";
 import { resolve } from "path";
-import { isDirectory, isSVGFilePath } from "./file_handler.js";
+import { isDirectory, isImageFilePath } from "./file_handler.js";
 
 const DEFAULT_OUTPUT_FILE_NAME = "umljs.svg";
 
@@ -26,7 +26,7 @@ async function generateSVG(mermaidUMLText, ouputDirectoryOrFilePath) {
   return new Promise((resolvePromise, reject) => {
     https.get(url, function (response) {
       let fileStream;
-      if (isSVGFilePath(ouputDirectoryOrFilePath)) {
+      if (isImageFilePath(ouputDirectoryOrFilePath)) {
         fileStream = createWriteStream(resolve(ouputDirectoryOrFilePath));
       } else if (isDirectory(ouputDirectoryOrFilePath)) {
         fileStream = createWriteStream(

@@ -69,7 +69,7 @@ function isDirectory(path) {
 }
 
 export {
-  isDirectory, isImageFilePath as isSVGFilePath, isTXTFilePath,
+  isDirectory, isImageFilePath, isTXTFilePath,
   validateDirectoryPath,
   validateFilePath,
   validatePath

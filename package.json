@@ -2,13 +2,11 @@
   "name": "umljs",
   "version": "1.0.0",
   "description": "Automatic UML code generator you ever need.",
-  "main": "index.js",
+  "main": "./dist/umljs.bundle.js",
   "scripts": {
     "build": "webpack"
   },
-  "bin": {
-    "umljs": "index.js"
-  },
+  "bin": "./dist/umljs.bundle.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -24,5 +22,7 @@
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"
   },
-  "type": "module"
+  "files": [
+    "dist/umljs.bundle.js"
+  ]
 }

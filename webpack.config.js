@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require('webpack');
 
 module.exports = {
   mode: "production",
@@ -7,11 +8,8 @@ module.exports = {
     path: path.resolve(__dirname, "dist"), // Output directory
     filename: "umljs.bundle.js", // Output file name
   },
-  target: 'node',
-  resolve: {
-    fallback: {
-      path: false,
-      fs: false,
-    },
-  },
+  target: "node",
+  plugins: [
+    new webpack.BannerPlugin({ banner: "#!/usr/bin/env node", raw: true }),
+  ],
 };

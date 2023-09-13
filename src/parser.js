@@ -1,7 +1,7 @@
-import { parse } from "@babel/parser";
-import traverse from "@babel/traverse";
-import { readFileSync } from "fs";
-import { resolve } from "path";
+const parser = require('@babel/parser');
+const traverse = require('@babel/traverse');
+const path = require('path');
+const fs = require('fs');
 
 let classes = [];
 
@@ -21,9 +21,9 @@ function buildMethodNameWithParams(methodName, node) {
 }
 
 function parseUMLInfo(filePath) {
-  const fileContent = readFileSync(resolve(filePath), "utf-8");
+  const fileContent = fs.readFileSync(path.resolve(filePath), "utf-8");
 
-  const ast = parse(fileContent, {
+  const ast = parser.parse(fileContent, {
     sourceType: "module",
   });
 
