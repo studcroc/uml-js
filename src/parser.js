@@ -1,7 +1,7 @@
-const parser = require('@babel/parser');
-const traverse = require('@babel/traverse');
-const path = require('path');
-const fs = require('fs');
+import parser from '@babel/parser';
+import traverse from '@babel/traverse';
+import fs from 'fs';
+import path from 'path';
 
 let classes = [];
 
