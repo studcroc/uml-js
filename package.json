@@ -1,7 +1,7 @@
 {
   "name": "umljs",
   "version": "1.0.0",
-  "description": "Automatic UML Diagram generator you ever need for Javascript ES6 styled codebase",
+  "description": "Automatic UML Diagram generator you ever needed for Javascript ES6 styled codebase",
   "main": "./dist/umljs.bundle.cjs",
   "scripts": {
     "build": "webpack"
@@ -25,5 +25,11 @@
   "files": [
     "dist/umljs.bundle.cjs"
   ],
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.0.0",
+    "figlet": "^1.6.0",
+    "ora": "^7.0.1"
+  }
 }

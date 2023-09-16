@@ -1,9 +1,8 @@
 /**
  * Generates the text file with the mermaid code to render the UML diagram.
  * @param {Array<*>} classes - Classes and their relations information
- * @param {String} ouputDirectoryOrFilePath - Output file's path
  */
-function generateMermaidUMLCode(classes, ouputDirectoryOrFilePath) {
+function generateMermaidUMLCode(classes) {
   let textToWrite = "classDiagram\n";
   let relations = {};
 

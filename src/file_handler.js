@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { readdirSync, statSync } from "fs";
 import { resolve } from "path";
 
@@ -38,10 +39,24 @@ function validateFilePath(path) {
 
 function validateDirectoryPath(path) {
   let resolvedPath = resolve(path);
-  let isValidDirectory = statSync(resolvedPath).isDirectory(resolvedPath);
-
-  if (!isValidDirectory)
-    throw Error(`Given path ${path} is not referencing a valid directory.`);
+  try {
+    let isValidDirectory = statSync(resolvedPath).isDirectory(resolvedPath);
+    if (!isValidDirectory) {
+      console.error(
+        chalk.redBright(
+          `Given path ${path} is not referencing a valid directory.`
+        )
+      );
+      process.exit(1);
+    }
+  } catch (error) {
+    console.error(
+      chalk.redBright(
+        `Given path ${path} is not referencing a valid directory.`
+      )
+    );
+    process.exit(1);
+  }
 }
 
 function validatePath(path) {
@@ -65,11 +80,22 @@ function isImageFilePath(path) {
 
 function isDirectory(path) {
   let resolvedPath = resolve(path);
-  return statSync(resolvedPath).isDirectory(resolvedPath);
+  try {
+    return statSync(resolvedPath).isDirectory(resolvedPath);
+  } catch (error) {
+    console.error(
+      chalk.redBright(
+        `Given path ${path} is not referencing a valid directory.`
+      )
+    );
+    process.exit(1);
+  }
 }
 
 export {
-  isDirectory, isImageFilePath, isTXTFilePath,
+  isDirectory,
+  isImageFilePath,
+  isTXTFilePath,
   validateDirectoryPath,
   validateFilePath,
   validatePath
