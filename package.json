@@ -1,13 +1,17 @@
 {
   "name": "umljs",
   "version": "1.0.0",
-  "description": "Automatic UML code generator you ever need.",
+  "description": "Automatic UML Diagram generator you ever need for Javascript ES6 styled codebase",
   "main": "./dist/umljs.bundle.cjs",
   "scripts": {
     "build": "webpack"
   },
   "bin": "./dist/umljs.bundle.cjs",
-  "keywords": [],
+  "keywords": [
+    "UML",
+    "Javascript",
+    "ES6"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
