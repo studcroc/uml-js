@@ -3,9 +3,9 @@
 import chalk from "chalk";
 import { Command } from "commander";
 import figlet from "figlet";
-import DOSRebel from "figlet/importable-fonts/DOS Rebel.js";
 import ora from "ora";
 import path from 'path';
+import DOSRebel from "./src/DOSRebel.font.js";
 import getFilePathList, { isImageFilePath, validateDirectoryPath } from "./src/file_handler.js";
 import parseFilesForUML from "./src/parser.js";
 import generateSVG from "./src/svg_util.js";
