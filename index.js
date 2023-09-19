@@ -12,13 +12,13 @@ import generateSVG from "./src/svg_util.js";
 import generateMermaidUMLCode from "./src/uml_generator.js";
 
 async function init() {
+  // Greet user
+  renderHelloText();
+
   let args = parseUserProvidedArguments();
 
   const inputDirectoryPath = args.input;
   const ouputFilePath = args.output;
-
-  // Greet user
-  renderHelloText();
 
   let spinner = ora().start("Doing some sanity checks.\n");
   // Sanity checks
@@ -34,7 +34,14 @@ async function init() {
   spinner.start("Parsing the retrieved js files to extract UML information.\n");
   // Parse files and get the UML relevant information
   const classes = parseFilesForUML(filePaths);
-  spinner.succeed();
+  if (classes.length === 0) {
+    spinner.fail();
+    spinner.stop();
+    console.log(chalk.redBright("No ES6 classes were found."));
+    process.exit(1);
+  } else {
+    spinner.succeed();
+  }
 
   spinner.start("Generating the UML diagram.\n");
   // Generate Mermaid UML code
@@ -76,7 +83,7 @@ function parseUserProvidedArguments() {
 
   if (!isImageFilePath(outputFilePath)) {
     program.error(
-      "Only SVG and PNG formats are supported. Please check your output file name."
+      chalk.redBright("Only SVG and PNG formats are supported. Please check your output file name.")
     );
   }
 
