@@ -1,7 +1,7 @@
 # umljs
 
 [![npm version](https://img.shields.io/npm/v/@hvg24/umljs.svg)](https://www.npmjs.com/package/@hvg24/umljs)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/license-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
 Automatic UML Diagram generator for JavaScript ES6 styled codebases.
 
