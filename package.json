@@ -1,13 +1,13 @@
 {
-  "name": "uml-js",
+  "name": "@hvg24/umljs",
   "version": "1.0.0",
   "description": "Automatic UML Diagram generator you ever needed for Javascript ES6 styled codebase",
-  "main": "./dist/uml-js.bundle.cjs",
+  "main": "./dist/umljs.bundle.cjs",
   "scripts": {
     "build": "webpack"
   },
   "bin": {
-    "umljs": "./dist/uml-js.bundle.cjs"
+    "umljs": "./dist/umljs.bundle.cjs"
   },
   "keywords": [
     "UML",
@@ -26,7 +26,7 @@
     "webpack-cli": "^5.1.4"
   },
   "files": [
-    "dist/uml-js.bundle.cjs"
+    "dist/umljs.bundle.cjs"
   ],
   "type": "module",
   "dependencies": {

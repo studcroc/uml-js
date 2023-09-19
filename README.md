@@ -1,21 +1,21 @@
-# uml-js
+# umljs
 
-[![npm version](https://img.shields.io/npm/v/uml-js.svg)](https://www.npmjs.com/package/uml-js)
+[![npm version](https://img.shields.io/npm/v/@hvg24/umljs.svg)](https://www.npmjs.com/package/@hvg24/umljs)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 Automatic UML Diagram generator for JavaScript ES6 styled codebases.
 
 ## Installation
 
-You can easily install `uml-js` via npm:
+You can easily install `@hvg24/umljs` via npm:
 
 ```bash
-npm install -g uml-js
+npm install -g '@hvg24/umljs'
 ```
 
 ## Usage
 
-`uml-js` is a command-line tool that allows you to generate UML diagrams from your JavaScript ES6 codebase.
+`umljs` is a command-line tool that allows you to generate UML diagrams from your JavaScript ES6 codebase.
 
 ### Options
 
