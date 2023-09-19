@@ -14,7 +14,7 @@
     "Javascript",
     "ES6"
   ],
-  "author": "",
+  "author": "Harsh Vardhan Gautam",
   "license": "ISC",
   "devDependencies": {
     "@babel/traverse": "^7.22.17",
