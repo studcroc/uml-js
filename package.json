@@ -1,6 +1,6 @@
 {
   "name": "@hvg24/umljs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Automatic UML Diagram generator you ever needed for Javascript ES6 styled codebase",
   "main": "./dist/umljs.bundle.cjs",
   "scripts": {
