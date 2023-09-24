@@ -1,3 +1,5 @@
+import jotDown from "./analytics.js";
+
 /**
  * Generates the text file with the mermaid code to render the UML diagram.
  * @param {Array<*>} classes - Classes and their relations information
@@ -43,6 +45,13 @@ function generateMermaidUMLCode(classes) {
     textToWrite += `\n${key} --|> ${relations[key]}`;
   }
 
+  // Jot down the length of mermaid UML code generated
+  jotDown({
+    name: "length_of_mermaid_uml_code_generated",
+    data: {
+      length: textToWrite.length,
+    },
+  });
   return textToWrite;
 }
 

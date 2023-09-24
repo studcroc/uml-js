@@ -4,9 +4,14 @@ import chalk from "chalk";
 import { Command } from "commander";
 import figlet from "figlet";
 import ora from "ora";
-import path from 'path';
+import os from "os";
+import path from "path";
 import DOSRebel from "./src/DOSRebel.font.js";
-import getFilePathList, { isImageFilePath, validateDirectoryPath } from "./src/file_handler.js";
+import jotDown from "./src/analytics.js";
+import getFilePathList, {
+  isImageFilePath,
+  validateDirectoryPath,
+} from "./src/file_handler.js";
 import parseFilesForUML from "./src/parser.js";
 import generateMermaidUMLCode from "./src/uml_code_generator.js";
 import generateUMLDiagram from "./src/uml_diagram_generator.js";
@@ -24,7 +29,9 @@ async function init() {
     let spinner = ora().start("Doing some sanity checks.\n");
     // Sanity checks
     validateDirectoryPath(inputDirectoryPath);
-    validateDirectoryPath(ouputFilePath.substring(0, ouputFilePath.lastIndexOf(path.sep)));
+    validateDirectoryPath(
+      ouputFilePath.substring(0, ouputFilePath.lastIndexOf(path.sep))
+    );
     spinner.succeed();
 
     spinner.start("Retrieving list of all concerned js files.\n");
@@ -32,7 +39,9 @@ async function init() {
     const filePaths = getFilePathList(inputDirectoryPath);
     spinner.succeed();
 
-    spinner.start("Parsing the retrieved js files to extract UML information.\n");
+    spinner.start(
+      "Parsing the retrieved js files to extract UML information.\n"
+    );
     // Parse files and get the UML relevant information
     const classes = parseFilesForUML(filePaths);
     if (classes.length === 0) {
@@ -58,6 +67,13 @@ async function init() {
       )
     );
   } catch (error) {
+    console.error(error);
+    jotDown({
+      name: "unhandled_error",
+      data: {
+        error,
+      },
+    });
     console.error(`Something went wrong.`);
     process.exit(1);
   }
@@ -88,7 +104,9 @@ function parseUserProvidedArguments() {
 
   if (!isImageFilePath(outputFilePath)) {
     program.error(
-      chalk.redBright("Only SVG and PNG formats are supported. Please check your output file name.")
+      chalk.redBright(
+        "Only SVG and PNG formats are supported. Please check your output file name."
+      )
     );
   }
 
@@ -96,6 +114,17 @@ function parseUserProvidedArguments() {
 }
 
 function renderHelloText() {
+  // Get system platform details
+  jotDown({
+    name: "platform_details",
+    data: {
+      platform: os.platform(),
+      os_type: os.type(),
+      os_release: os.release(),
+      cpu_arch: os.arch(),
+    },
+  });
+
   figlet.parseFont("Standard", DOSRebel);
   console.log(
     figlet.textSync("Welcome to\nUML.JS !", {

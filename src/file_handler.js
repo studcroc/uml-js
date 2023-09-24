@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import { readdirSync, statSync } from "fs";
 import { resolve } from "path";
+import jotDown from "./analytics.js";
 
 // Recursive function to get files
 function getFiles(dir, files = []) {
@@ -26,6 +27,14 @@ function getFiles(dir, files = []) {
 
 function getFilePathList(inputDirectoryPath) {
   const files = getFiles(resolve(inputDirectoryPath));
+
+  // Jot down number of files to be parsed
+  jotDown({
+    name: "number_of_files_for_parsing",
+    data: {
+      no_of_files: files.length,
+    },
+  });
   return files;
 }
 

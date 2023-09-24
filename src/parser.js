@@ -1,7 +1,8 @@
-import parser from '@babel/parser';
-import traverse from '@babel/traverse';
-import fs from 'fs';
-import path from 'path';
+import parser from "@babel/parser";
+import traverse from "@babel/traverse";
+import fs from "fs";
+import path from "path";
+import jotDown from "./analytics.js";
 
 let classes = [];
 
@@ -114,13 +115,21 @@ function parseUMLInfo(filePath) {
 
 /**
  * Parses the given files and returns the parsed UML information as array
- * @param {Array<String>} filePaths 
+ * @param {Array<String>} filePaths
  * @returns {Array<>}
  */
 function parseFilesForUML(filePaths) {
   // Iterate over files to parse UML info
   filePaths.forEach((filePath) => {
     parseUMLInfo(filePath);
+  });
+
+  // Jot down number of ES6 classes parsed
+  jotDown({
+    name: "number_of_es6_classes_parsed",
+    data: {
+      no_of_es6_classes: classes.length,
+    },
   });
 
   return classes;

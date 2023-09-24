@@ -34,6 +34,16 @@ umljs -i /path/to/your/codebase -o output.png
 
 Replace `/path/to/your/codebase` with the actual path to your JavaScript codebase directory. The UML diagram will be saved as `output.png`.
 
+## Contact Information
+
+If you have any questions, feedback, or encounter issues with this npm package, please feel free to reach out to the package developer:
+
+- [![GitHub](https://img.shields.io/badge/GitHub-%40hvg2416-blue.svg)](https://github.com/hvg2416)
+
+- [![Email](https://img.shields.io/badge/Email-developer.hvg24@gmail.com-blue.svg)](mailto:developer.hvg24@gmail.com)
+
+- [![Medium](https://img.shields.io/badge/Medium-@hvg24-blue.svg)](https://medium.com/@hvg24)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
