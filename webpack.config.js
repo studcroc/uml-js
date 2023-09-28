@@ -20,6 +20,7 @@ export default {
   optimization: {
     minimize: true,
     minimizer: [
+      // Remove the comments
       new TerserPlugin({
         extractComments: false,
         terserOptions: {
@@ -30,4 +31,7 @@ export default {
       }),
     ],
   },
+  externals: {
+    sharp: 'commonjs sharp'
+  }
 };

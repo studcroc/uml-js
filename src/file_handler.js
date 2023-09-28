@@ -51,20 +51,10 @@ function validateDirectoryPath(path) {
   try {
     let isValidDirectory = statSync(resolvedPath).isDirectory(resolvedPath);
     if (!isValidDirectory) {
-      console.error(
-        chalk.redBright(
-          `Given path ${path} is not referencing a valid directory.`
-        )
-      );
-      process.exit(1);
+      throw new Error(`Given path ${path} is not referencing a valid directory.`)
     }
   } catch (error) {
-    console.error(
-      chalk.redBright(
-        `Given path ${path} is not referencing a valid directory.`
-      )
-    );
-    process.exit(1);
+    throw new Error(`Given path ${path} is not referencing a valid directory.`)
   }
 }
 
@@ -81,6 +71,10 @@ function validatePath(path) {
 
 function isTXTFilePath(path) {
   return path.endsWith(".txt");
+}
+
+function isPNGFilePath(path) {
+  return path.endsWith(".png");
 }
 
 function isImageFilePath(path) {
@@ -103,9 +97,7 @@ function isDirectory(path) {
 
 export {
   isDirectory,
-  isImageFilePath,
-  isTXTFilePath,
-  validateDirectoryPath,
+  isImageFilePath, isPNGFilePath, isTXTFilePath, validateDirectoryPath,
   validateFilePath,
   validatePath
 };

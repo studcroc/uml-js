@@ -24,9 +24,14 @@ function buildMethodNameWithParams(methodName, node) {
 function parseUMLInfo(filePath) {
   const fileContent = fs.readFileSync(path.resolve(filePath), "utf-8");
 
-  const ast = parser.parse(fileContent, {
-    sourceType: "module",
-  });
+  let ast;
+  try {
+    ast = parser.parse(fileContent, {
+      sourceType: "module",
+    });
+  } catch (error) {
+    throw new Error(`Error parsing file ${filePath}`);
+  }
 
   traverse.default(ast, {
     enter(path) {
@@ -131,6 +136,10 @@ function parseFilesForUML(filePaths) {
       no_of_es6_classes: classes.length,
     },
   });
+
+  if (classes.length === 0) {
+    throw new Error("No ES6 classes were found.");
+  }
 
   return classes;
 }

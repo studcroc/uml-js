@@ -6,6 +6,7 @@ import figlet from "figlet";
 import ora from "ora";
 import os from "os";
 import path from "path";
+import packageJSON from "./package.json" assert { type: "json" };
 import DOSRebel from "./src/DOSRebel.font.js";
 import jotDown from "./src/analytics.js";
 import getFilePathList, {
@@ -16,23 +17,29 @@ import parseFilesForUML from "./src/parser.js";
 import generateMermaidUMLCode from "./src/uml_code_generator.js";
 import generateUMLDiagram from "./src/uml_diagram_generator.js";
 
+let spinner;
+
 async function init() {
   try {
-    // Greet user
-    renderHelloText();
-
     let args = parseUserProvidedArguments();
 
     const inputDirectoryPath = args.input;
-    const ouputFilePath = args.output;
+    const outputFilePath = args.output;
 
-    let spinner = ora().start("Doing some sanity checks.\n");
-    // Sanity checks
-    validateDirectoryPath(inputDirectoryPath);
-    validateDirectoryPath(
-      ouputFilePath.substring(0, ouputFilePath.lastIndexOf(path.sep))
-    );
-    spinner.succeed();
+    spinner = ora().start("Doing some sanity checks.\n");
+    try {
+      // Sanity checks
+      validateDirectoryPath(inputDirectoryPath);
+      validateDirectoryPath(
+        outputFilePath.substring(0, outputFilePath.lastIndexOf(path.sep))
+      );
+      spinner.succeed();
+    } catch (error) {
+      showError(error);
+    }
+
+    // Greet user
+    renderHelloText();
 
     spinner.start("Retrieving list of all concerned js files.\n");
     // Get list of all the relevant js files to parse
@@ -43,29 +50,32 @@ async function init() {
       "Parsing the retrieved js files to extract UML information.\n"
     );
     // Parse files and get the UML relevant information
-    const classes = parseFilesForUML(filePaths);
-    if (classes.length === 0) {
-      spinner.fail();
-      spinner.stop();
-      console.log(chalk.redBright("No ES6 classes were found."));
-      process.exit(1);
-    } else {
+    let classes = [];
+    try {
+      classes = parseFilesForUML(filePaths);
       spinner.succeed();
+    } catch (error) {
+      showError(error);
     }
 
     spinner.start("Generating the UML diagram.\n");
     // Generate Mermaid UML code
     const mermaidUMLCode = generateMermaidUMLCode(classes);
-    // Generate UML Diagram in image format (Only SVG and PNG are supported)
-    await generateUMLDiagram(mermaidUMLCode, ouputFilePath);
-    spinner.succeed();
-    spinner.stop();
 
-    console.log(
-      chalk.cyanBright(
-        `\nUML Diagram is generated at location ${ouputFilePath}.\n`
-      )
-    );
+    try {
+      // Generate UML Diagram in image format (Only SVG and PNG are supported)
+      await generateUMLDiagram(mermaidUMLCode, outputFilePath);
+      spinner.succeed();
+
+      console.log(
+        chalk.cyanBright(
+          `\nUML Diagram is generated at location ${path.resolve(outputFilePath)}.\n`
+        )
+      );
+    } catch (error) {
+      showError(error);
+    }
+
   } catch (error) {
     console.error(error);
     jotDown({
@@ -86,7 +96,7 @@ function parseUserProvidedArguments() {
     .description(
       "Automatic UML Diagram generator you ever needed for Javascript ES6 styled codebase"
     )
-    .version("1.0.0", "-v, --version")
+    .version(`${packageJSON.version}`, "-v, --version")
     .requiredOption(
       "-i, --input <type>",
       "Input directory path whose JS files are to be parsed and the UML diagram is to be generated from."
@@ -127,11 +137,14 @@ function renderHelloText() {
 
   figlet.parseFont("Standard", DOSRebel);
   console.log(
-    figlet.textSync("Welcome to\nUML.JS !", {
-      horizontalLayout: "fitted",
-      verticalLayout: "controlled smushing",
-    })
+    figlet.textSync("UML.JS !")
   );
+}
+
+function showError(errorMssg) {
+  spinner.fail();
+  console.error(chalk.redBright(`${errorMssg}`));
+  process.exit(1);
 }
 
 init();
