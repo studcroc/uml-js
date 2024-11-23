@@ -34,6 +34,12 @@ umljs -i /path/to/your/codebase -o output.png
 
 Replace `/path/to/your/codebase` with the actual path to your JavaScript codebase directory. The UML diagram will be saved as `output.png`.
 
+Github Repositories you can try generating UML for:
+1. https://github.com/DefiLlama/DefiLlama-Adapters
+    - /projects/helper/utils/
+2. https://github.com/QuiteAFancyEmerald/Holy-Unblocker
+    - /lib/rammerhead
+
 ## Contact Information
 
 If you have any questions, feedback, or encounter issues with this npm package, please feel free to reach out to the package developer:

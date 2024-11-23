@@ -1,57 +1,50 @@
-import { createWriteStream } from "fs";
+import { createWriteStream, writeFileSync, writevSync } from "fs";
 import https from "https";
 import os from "os";
 import { parse, resolve } from "path";
 import sharp from "sharp";
 import { isImageFilePath, isPNGFilePath } from "./file_handler.js";
+import axios from "axios";
 
 async function generateUMLDiagram(mermaidUMLText, outputFilePath) {
   const expectedOutputFormat = parse(outputFilePath).ext.slice(1);
 
-  return new Promise((resolvePromise, reject) => {
-    var reqData = JSON.stringify({
+  return new Promise(async (resolvePromise, reject) => {
+
+    const response = await axios.post("https://kroki.io/mermaid", {
       diagram_source: mermaidUMLText,
       diagram_type: "mermaid",
       output_format: expectedOutputFormat,
+    }, {
+      responseType: "stream"
     });
 
-    var options = {
-      hostname: "kroki.io",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/text",
-      },
-    };
-
-    var req = https.request(options, (response) => {
-      if (response.statusCode === 200) {
-        let fileStream;
-        let tempPath;
-        if (isPNGFilePath(outputFilePath)) {
-          tempPath = resolve(os.tmpdir(), parse(outputFilePath).base);
-        } else if (isImageFilePath(outputFilePath)) {
-          tempPath = outputFilePath;
-        } else {
-          reject(`The output file path ${outputFilePath} is not valid.`);
-        }
-        fileStream = createWriteStream(tempPath);
-        response.pipe(fileStream).on("finish", async () => {
-          // If it's a PNG file, apply the white background to it.
-          if (isPNGFilePath(outputFilePath)) {
-            try {
-              await applyWhiteBackgroundToPNG(tempPath, outputFilePath);
-            } catch (error) {
-              reject(error);
-            }
-          }
-          resolvePromise();
-        });
+    if (response.status === 200) {
+      let fileStream;
+      let tempPath;
+      if (isPNGFilePath(outputFilePath)) {
+        tempPath = resolve(os.tmpdir(), parse(outputFilePath).base);
+      } else if (isImageFilePath(outputFilePath)) {
+        tempPath = outputFilePath;
       } else {
-        reject(`Network error occured while rendering the UML diagram.`);
+        reject(`The output file path ${outputFilePath} is not valid.`);
       }
-    });
-    req.write(reqData);
-    req.end();
+      fileStream = createWriteStream(tempPath);
+
+      response.data.pipe(fileStream).on("finish", async () => {
+        // If it's a PNG file, apply the white background to it.
+        if (isPNGFilePath(outputFilePath)) {
+          try {
+            await applyWhiteBackgroundToPNG(tempPath, outputFilePath);
+          } catch (error) {
+            reject(error);
+          }
+        }
+        resolvePromise();
+      });
+    } else {
+      reject(`Network error occured while rendering the UML diagram.`);
+    }
   });
 }
 
