@@ -44,11 +44,11 @@ Github Repositories you can try generating UML for:
 
 If you have any questions, feedback, or encounter issues with this npm package, please feel free to reach out to the package developer:
 
-- [![GitHub](https://img.shields.io/badge/GitHub-%40hvg2416-blue.svg)](https://github.com/hvg2416)
+- [![GitHub](https://img.shields.io/badge/GitHub-%40studcroc-blue.svg)](https://github.com/studcroc)
 
 - [![Email](https://img.shields.io/badge/Email-developer.hvg24@gmail.com-blue.svg)](mailto:developer.hvg24@gmail.com)
 
-- [![Medium](https://img.shields.io/badge/Medium-@hvg24-blue.svg)](https://medium.com/@hvg24)
+- [![Medium](https://img.shields.io/badge/Medium-@theharshgautam-blue.svg)](https://medium.com/@theharshgautam)
 
 ## License
 
