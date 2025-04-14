@@ -1,7 +1,7 @@
 {
   "name": "@hvg24/umljs",
   "version": "1.0.6",
-  "description": "Automatic UML Diagram generator you ever needed for Javascript ES6 styled codebase",
+  "description": "Automatic UML Diagram generator for JavaScript ES6 codebases.",
   "main": "./dist/umljs.bundle.cjs",
   "scripts": {
     "build": "webpack"
@@ -11,8 +11,15 @@
   },
   "keywords": [
     "UML",
-    "Javascript",
-    "ES6"
+    "JavaScript",
+    "ES6",
+    "UML Diagram",
+    "Code Visualization",
+    "Mermaid.js",
+    "Static Analysis",
+    "CLI Tool",
+    "Code Parsing",
+    "Automation"
   ],
   "author": "Harsh Vardhan Gautam",
   "license": "ISC",
