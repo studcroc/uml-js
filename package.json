@@ -7,7 +7,7 @@
     "build": "webpack"
   },
   "bin": {
-    "umljs": "./dist/umljs.bundle.cjs"
+    "umljs": "dist/umljs.bundle.cjs"
   },
   "keywords": [
     "UML",
