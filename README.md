@@ -7,6 +7,8 @@ Automatic UML Diagram generator for JavaScript ES6 styled codebases.
 
 ## Installation
 
+> Nodejs Version: v22.12.0
+
 You can easily install `@hvg24/umljs` via npm:
 
 ```bash
@@ -39,6 +41,10 @@ Github Repositories you can try generating UML for:
     - /projects/helper/utils/
 2. https://github.com/QuiteAFancyEmerald/Holy-Unblocker
     - /lib/rammerhead
+
+#### Example diagram for Holy-Unblocker repository
+
+![Holy-Unblocker project's UML diagram](./sample/sample.png)
 
 ## Contact Information
 

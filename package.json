@@ -1,6 +1,6 @@
 {
   "name": "@hvg24/umljs",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Automatic UML Diagram generator you ever needed for Javascript ES6 styled codebase",
   "main": "./dist/umljs.bundle.cjs",
   "scripts": {
@@ -17,25 +17,25 @@
   "author": "Harsh Vardhan Gautam",
   "license": "ISC",
   "devDependencies": {
-    "@babel/traverse": "^7.22.17",
-    "babel-loader": "^9.1.3",
+    "@babel/traverse": "^7.27.0",
+    "babel-loader": "^10.0.0",
     "estraverse": "^5.3.0",
     "pako": "^2.1.0",
-    "terser-webpack-plugin": "^5.3.9",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4"
+    "terser-webpack-plugin": "^5.3.14",
+    "webpack": "^5.99.5",
+    "webpack-cli": "^6.0.1"
   },
   "files": [
     "dist/umljs.bundle.cjs"
   ],
   "type": "module",
   "dependencies": {
-    "@sentry/node": "^7.70.0",
-    "axios": "^1.7.7",
-    "chalk": "^5.3.0",
-    "commander": "^11.0.0",
-    "figlet": "^1.6.0",
-    "ora": "^7.0.1",
-    "sharp": "^0.32.6"
+    "@sentry/node": "^9.12.0",
+    "axios": "^1.8.4",
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "figlet": "^1.8.1",
+    "ora": "^8.2.0",
+    "sharp": "^0.34.1"
   }
 }
